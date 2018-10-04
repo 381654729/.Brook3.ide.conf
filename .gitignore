@@ -1,0 +1,6 @@
+!.gitignore
+!tmux
+!vim
+!sh
+!README.md
+*
