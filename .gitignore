@@ -1,6 +1,9 @@
-!.gitignore
-!tmux
-!vim
-!sh
-!README.md
 *
+!.gitignore
+!tmux/
+!tmux/*
+!vim/
+!vim/*
+!sh/
+!sh/*
+!README.md

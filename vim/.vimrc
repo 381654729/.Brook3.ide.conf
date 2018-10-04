@@ -15,22 +15,23 @@ Plug 'w0rp/ale'
 
 " 全局搜索
 """""""""""""""""""""""""""""""""""""""""
-" Plug 'dkprice/vim-easygrep'
-"Plug 'rking/ag.vim'
-"Plug 'dyng/ctrlsf.vim'
-"let g:ctrlsf_ackprg = 'ag'
-"nnoremap <leader>f :CtrlSF<CR>
-"let g:ctrlsf_default_view_mode = 'compact'
-" 文件，代码搜索
-Plug 'wsdjeg/FlyGrep.vim'
-nnoremap  <leader>s :FlyGrep <cr>
-"""""""""""""""""""""""""""""""""""""""""
-" Plug 'kien/ctrlp.vim'
+" 文件搜索
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+let g:Lf_ShortcutF = '<C-i>'
+" 代码搜索
+Plug 'dyng/ctrlsf.vim'
+" let g:ctrlsf_ackprg = 'rg'
+nmap <Leader>fc :CtrlSF<space>
 
-Plug 'junegunn/fzf.vim'
+"""""""""""""""""""""""""""""""""""""""""
+" Plug 'Valloric/YouCompleteMe'
+
+
+Plug 'mattn/emmet-vim'
 
 " 中文文档
 Plug 'qiyu2580/vimcdoc'
+
 """""""""""""""""""""""""""""""""""""""""
 " 工程管理
 """""""""""""""""""""""""""""""""""""""""
@@ -51,13 +52,32 @@ let NERDTreeMinimalUI=1
 let NERDTreeAutoDeleteBuffer=1
 " 常用操作 CUJKotrqpP<C-j><C-k>
 
-" git 控制
-Plug 'xuyuanp/nerdtree-git-plugin'
-
 " 版本控制
 """""""""""""""""""""""""""""""""""""""""
+" git
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
+Plug 'xuyuanp/nerdtree-git-plugin'
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+
+" go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"""
+" python
+" Plug 'python-mode/python-mode', { 'branch': 'develop' }
+" let g:pymode_python = 'python3'
+"""
 
 " 多文件编辑
 """""""""""""""""""""""""""""""""""""""""
@@ -152,13 +172,8 @@ nmap <Leader>f <Plug>(easymotion-overwin-f2)
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
 
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-
 " markdown
 """""""""""""""""""""""""""""""""""""""""
-" 将这个搞好 
 Plug 'iamcco/markdown-preview.vim'
 nmap <silent> <F3> <Plug>MarkdownPreview        " for normal mode
 imap <silent> <F3> <Plug>MarkdownPreview        " for insert mode
