@@ -6,4 +6,10 @@
 !vim/*
 !sh/
 !sh/*
+!ydcv/
+!ydcv/*
+!python/
+!python/*
+!go/
+!go/*
 !README.md
