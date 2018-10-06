@@ -9,6 +9,11 @@ call plug#begin('~/.vim/plugged')
 
 
 
+" plug
+nnoremap <leader>pi :PlugInstall<cr>
+nnoremap <leader>pu :PlugUpdate<cr>
+nnoremap <leader>pc :PlugClean<cr>
+
 " 代码检测
 """""""""""""""""""""""""""""""""""""""""
 Plug 'w0rp/ale'
@@ -17,11 +22,11 @@ Plug 'w0rp/ale'
 """""""""""""""""""""""""""""""""""""""""
 " 文件搜索
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-let g:Lf_ShortcutF = '<C-i>'
+let g:Lf_ShortcutF = '<Leader>sd'
 " 代码搜索
 Plug 'dyng/ctrlsf.vim'
-" let g:ctrlsf_ackprg = 'rg'
-nmap <Leader>fc :CtrlSF<space>
+let g:ctrlsf_ackprg = 'rg'
+nmap <Leader>sf :CtrlSF<space>
 
 """""""""""""""""""""""""""""""""""""""""
 " Plug 'Valloric/YouCompleteMe'
@@ -88,6 +93,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 map <leader>bn :bn<cr>
 map <leader>bp :bp<cr>
 map <leader>bd :bd<cr>
+map <leader>bs :ls<cr>
 
 " 环境恢复
 """""""""""""""""""""""""""""""""""""""""
@@ -146,7 +152,7 @@ Plug 'altercation/vim-colors-solarized'
 " 方法列表
 """""""""""""""""""""""""""""""""""""""""
 Plug 'majutsushi/tagbar'
-nmap <F2> :TagbarToggle<cr>
+nmap <Leader>ff :TagbarToggle<cr>
 "设置tagbar的窗口宽度    
 let g:tagbar_width=30
 "开启自动预览(随着光标在标签上的移动，顶部会出现一个实时的预览窗口)
@@ -163,11 +169,11 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+nmap <Leader>jw <Plug>(easymotion-overwin-f)
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap <Leader>f <Plug>(easymotion-overwin-f2)
+nmap <Leader>jw <Plug>(easymotion-overwin-f2)
 
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -333,17 +339,18 @@ cnoremap <C-e> <End>
 " 功能键
 """""""""""""""""""""""""""""""""""""""""
 " F6语法高亮快捷键
-nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+nnoremap <Leader>fs :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 
 
 " 多窗口标签快捷键
 """""""""""""""""""""""""""""""""""""""""
 " 在多个窗口间切换
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <Leader>wh <C-W>h
+map <Leader>wj <C-W>j
+map <Leader>wk <C-W>k
+map <Leader>wl <C-W>l
+map <Leader>wq :q<cr>
 
 " Disbale paste mode when leaving insert mode
 map <leader>tn :tabnew<cr>
@@ -397,7 +404,7 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-map <leader>rn :call NumberToggle()<cr>
+map <leader>fn :call NumberToggle()<cr>
 
 
 " 突出显示当前行列转换
@@ -410,7 +417,7 @@ function! CusorCulLineToggle()
     set cursorline
   endif
 endfunc
-map <leader>cl :call CusorCulLineToggle()<cr>
+map <leader>fc :call CusorCulLineToggle()<cr>
 
 
 
@@ -426,7 +433,7 @@ endif
 
 
 " 快速记日志（php）
-map <F5> :call ErrorLog()<cr>
+map <Leader>l :call ErrorLog()<cr>
 function! ErrorLog()
 	let errorLogLine=line(".") + 1
     call append(line("."),"error_log('".expand("%:t").":".errorLogLine." --- .log '.date('Y-m-d H:i:s').',Brook3:'.var_export($Brook3,1).\"\\n\",3,ROOT_DIR.'/log/Brook3.txt');")
@@ -435,7 +442,7 @@ endf
 
 
 " 快速添加版权和作者信息
-map <F4> :call TitleDet()<cr>
+map <Leader>ft :call TitleDet()<cr>
 function! AddTitle()
     call append(0,"\#!/usr/bin/env bash")
     call append(1,"# ******************************************************")
