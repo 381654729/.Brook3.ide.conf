@@ -8,8 +8,12 @@
 !sh/*
 !ydcv/
 !ydcv/*
+!git/
+!git/*
 !python/
 !python/*
 !go/
 !go/*
+!markdown/
+!markdown/*
 !README.md

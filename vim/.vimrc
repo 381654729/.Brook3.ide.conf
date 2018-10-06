@@ -9,6 +9,13 @@ call plug#begin('~/.vim/plugged')
 
 
 
+" autoload
+" 待改善：不同文件加载不同配置/不同插件
+source ~/.config/git/git.vimrc
+source ~/.config/go/go.vimrc
+source ~/.config/markdown/markdown.vimrc
+source ~/.config/python/python.vimrc
+
 " plug
 nnoremap <leader>pi :PlugInstall<cr>
 nnoremap <leader>pu :PlugUpdate<cr>
@@ -56,33 +63,6 @@ let NERDTreeMinimalUI=1
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
 " 常用操作 CUJKotrqpP<C-j><C-k>
-
-" 版本控制
-"""""""""""""""""""""""""""""""""""""""""
-" git
-Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv'
-Plug 'xuyuanp/nerdtree-git-plugin'
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-
-" go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-"""
-" python
-" Plug 'python-mode/python-mode', { 'branch': 'develop' }
-" let g:pymode_python = 'python3'
-"""
 
 " 多文件编辑
 """""""""""""""""""""""""""""""""""""""""
@@ -178,17 +158,6 @@ nmap <Leader>jw <Plug>(easymotion-overwin-f2)
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
 
-" markdown
-"""""""""""""""""""""""""""""""""""""""""
-Plug 'iamcco/markdown-preview.vim'
-nmap <silent> <F3> <Plug>MarkdownPreview        " for normal mode
-imap <silent> <F3> <Plug>MarkdownPreview        " for insert mode
-nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
-imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
-" markdown 语法高亮
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-
 " 状态栏增强
 """""""""""""""""""""""""""""""""""""""""
 Plug 'itchyny/lightline.vim'
@@ -213,6 +182,7 @@ set nolist                       " 不Show non-printable characters.
 set nobackup                     "不自动保存
 set noswapfile                   "不生成swap文件
 set paste                        "粘贴保留格式
+set clipboard+=unnamed           "共享剪贴板
 set relativenumber number        "相对行号，可用Ctrl+n在相对/绝对行号间切换
 set history=2000                 "history存储长度
 set nocompatible                 "非兼容vi模式,避免以前版本的一些bug和局限
@@ -320,11 +290,6 @@ endif
 " 全选
 map <leader>a ggVG
 
-" 选中状态下 Ctrl+c 复制
-nnoremap <leader>p "+gp
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-
 
 
 " 普通模式(Nomal Mode)下快捷键
@@ -345,6 +310,8 @@ nnoremap <Leader>fs :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 " 多窗口标签快捷键
 """""""""""""""""""""""""""""""""""""""""
+map <Leader>ws :split 
+map <Leader>wv :vsplit 
 " 在多个窗口间切换
 map <Leader>wh <C-W>h
 map <Leader>wj <C-W>j
