@@ -43,11 +43,10 @@ function mcd {
 ###
 
 # include *.bash.alias
-if [ -d ~/.config ]; then 
-    for dirname in ~/.config/*
-    do
-        if [ -f ${dirname}/*.bash.alias ]; then
-            . ${dirname}/*.bash.alias
-        fi
-    done
-fi
+for dirname in ../*
+do
+    if [ -f ${dirname}/*.bash.alias ]; then
+        source ${dirname}/*.bash.alias
+        echo ${dirname}/*.bash.alias
+    fi
+done

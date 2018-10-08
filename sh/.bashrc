@@ -34,16 +34,15 @@ export WORKSPACE=/var/www
 ###
 
 # include bashrc
-if [ -d ~/.config ]; then 
-    for dirname in ~/.config/*
-    do
-        if [ -f ${dirname}/*.bashrc ]; then
-            . ${dirname}/*.bashrc
-        fi
-    done
-fi
+for dirname in ../*
+do
+    if [ -f ${dirname}/*.bashrc ]; then
+        source ${dirname}/*.bashrc
+        echo ${dirname}/*.bashrc
+    fi
+done
 
 # include alias
-if [ -f ~/.config/sh/.alias ]; then 
-    . ~/.config/sh/.alias
+if [ -f ./.alias ]; then 
+    . ./.alias
 fi
