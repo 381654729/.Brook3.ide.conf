@@ -1,6 +1,6 @@
-HelloWorld
+Brook3's config
 ===
-Brook3's config：构造一个程序员的世界
+构造一个程序员的世界
 
 vim
 ---
