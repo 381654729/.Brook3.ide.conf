@@ -1,3 +1,4 @@
+echo -e "${COLOR_LOADING}add *.alias:${COLOR_NULL}"
 # 简化
 alias ll='ls -alF'
 alias grep='grep --color=auto'
@@ -34,19 +35,39 @@ function extract {
 }
 # 备份
 function backup {
-    echo 'hello'
+    echo 'backup'
 }
 # mkdir && cd
 function mcd {
     mkdir $@ && cd $@
 }
+# Brook3's config install
+# 最后放到sh中进行执行，下载Brook3's config并进行初始化
+function Brook3_config_install {
+    # if [ -f ~/.bashrc ]; then
+        # rm -f ~/.bashrc
+    # fi
+    # ln -s ${CONFIGSPACE} ~/.bashrc
+    echo '1. .bashrc 2. .vimrc 3. .tmux.conf'
+}
+alias b3ci='Brook3_config_install'
+###
+# Brook3's config update
+function Brook3_config_update {
+    echo -e "${COLOR_LOADING}Brook3's config update ...${COLOR_NULL}"
+    if [ ! -f ~/.bashrc ]; then
+        echo -e "${COLOR_LOADING}add ~/.bashrc${COLOR_NULL}"
+        ln -s ${CONFIGSPACE}/sh/.bashrc ~/ && echo -e "${COLOR_SUCC}succ add${COLOR_NULL} ~/.bashrc"
+    fi
+    source ~/.bashrc
+}
+alias b3cu='Brook3_config_update'
 ###
 
 # include *.bash.alias
-for dirname in ../*
+for dirname in ${CONFIGSPACE}/*
 do
     if [ -f ${dirname}/*.bash.alias ]; then
-        source ${dirname}/*.bash.alias
-        echo ${dirname}/*.bash.alias
+        source ${dirname}/*.bash.alias && echo -e "${COLOR_SUCC}succ source${COLOR_NULL} ${dirname}/*.bash.alias" || echo -e "${COLOR_FAIL}fail source${COLOR_NULL} ${dirname}/*.bash.alias"
     fi
 done
