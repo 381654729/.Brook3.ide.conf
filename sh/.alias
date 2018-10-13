@@ -1,4 +1,3 @@
-echo -e "${COLOR_LOADING}add *.alias:${COLOR_NULL}"
 # 简化
 alias ll='ls -alF'
 alias grep='grep --color=auto'
@@ -57,9 +56,9 @@ function Brook3_config_update {
     echo -e "${COLOR_LOADING}Brook3's config update ...${COLOR_NULL}"
     if [ ! -f ~/.bashrc ]; then
         echo -e "${COLOR_LOADING}add ~/.bashrc${COLOR_NULL}"
-        ln -s ${CONFIGSPACE}/sh/.bashrc ~/ && echo -e "${COLOR_SUCC}succ add${COLOR_NULL} ~/.bashrc"
+        ln -s ${CONFIGSPACE}/sh/.bashrc ~/ && echo -e "${COLOR_SUCC}Succ add${COLOR_NULL} ~/.bashrc" || echo -e "${COLOR_FAIL}Fail add${COLOR_NULL} ~/.bashrc"
     fi
-    source ~/.bashrc
+    source ~/.bashrc && echo -e "${COLOR_SUCC}Succ source ~/.bashrc" || echo -e "${COLOR_FAIL}Fail source ~/.bashrc"
 }
 alias b3cu='Brook3_config_update'
 ###
@@ -68,6 +67,6 @@ alias b3cu='Brook3_config_update'
 for dirname in ${CONFIGSPACE}/*
 do
     if [ -f ${dirname}/*.bash.alias ]; then
-        source ${dirname}/*.bash.alias && echo -e "${COLOR_SUCC}succ source${COLOR_NULL} ${dirname}/*.bash.alias" || echo -e "${COLOR_FAIL}fail source${COLOR_NULL} ${dirname}/*.bash.alias"
+        source ${dirname}/*.bash.alias || echo -e "${COLOR_FAIL}Fail source${COLOR_NULL} ${dirname}/*.bash.alias"
     fi
 done

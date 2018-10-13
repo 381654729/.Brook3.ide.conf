@@ -42,15 +42,14 @@ export COLOR_FAIL='\e[32;1m'
 export COLOR_LOADING='\e[33;1m'
 
 # include bashrc
-echo -e "${COLOR_LOADING}add *.bashrc:${COLOR_NULL}"
 for dirname in ${CONFIGSPACE}/*
 do
     if [ -f ${dirname}/*.bashrc ]; then
-        source ${dirname}/*.bashrc && echo -e "${COLOR_SUCC}succ source${COLOR_NULL} ${dirname}/*.bashrc" || echo -e "${COLOR_FAIL}fail source ${dirname}/*.bashrc${COLOR_NULL}"
+        source ${dirname}/*.bashrc || echo -e "${COLOR_FAIL}Fail source ${dirname}/*.bashrc${COLOR_NULL}"
     fi
 done
 
 # includCONFIGSPACE
 if [ -f ${CONFIGSPACE}/sh/.alias ]; then 
-    source ${CONFIGSPACE}/sh/.alias && echo -e "${COLOR_SUCC}Brook3's config update succ${COLOR_NULL}"
+    source ${CONFIGSPACE}/sh/.alias || echo -e "${COLOR_FAIL}Fail source${CONFIGSPACE}/sh/.alias${COLOR_NULL}"
 fi
