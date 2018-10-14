@@ -12,12 +12,13 @@ call plug#begin('~/.vim/plugged')
 " autoload
 " 待改善：不同文件加载不同配置/不同插件
 source ~/.config/git/git.vimrc
-source ~/.config/go/go.vimrc
+" source ~/.config/go/go.vimrc
 source ~/.config/markdown/markdown.vimrc
 source ~/.config/python/python.vimrc
 
 " plug
 nnoremap <leader>pi :PlugInstall<cr>
+nnoremap <leader>ps :PlugStatus<cr>
 nnoremap <leader>pu :PlugUpdate<cr>
 nnoremap <leader>pc :PlugClean<cr>
 
@@ -160,8 +161,25 @@ let g:EasyMotion_smartcase = 1
 
 " 状态栏增强
 """""""""""""""""""""""""""""""""""""""""
-Plug 'itchyny/lightline.vim'
 set laststatus=2                 "永远显示状态栏
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"关闭tabline
+let g:airline#extensions#tabline#enabled = 0
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+" 顶部tab显示
+let g:airline#extensions#tabline#enabled=1
+"unicode symbols
+let g:airline_left_sep = '▶'
+let g:airline_left_alt_sep = '❯'
+let g:airline_right_sep = '◀'
+let g:airline_right_alt_sep = '❮'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+
+
 
 call plug#end()            " required
 
@@ -317,7 +335,6 @@ map <Leader>wh <C-W>h
 map <Leader>wj <C-W>j
 map <Leader>wk <C-W>k
 map <Leader>wl <C-W>l
-map <Leader>wq :q<cr>
 
 " Disbale paste mode when leaving insert mode
 map <leader>tn :tabnew<cr>

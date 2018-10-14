@@ -63,6 +63,7 @@ m<space>
 ```vim
 <Leader>p
 <Leader>pi plug install
+<Leader>ps plug status
 <Leader>pu plug update
 <Leader>pc plug clean
 ```
@@ -92,7 +93,6 @@ m<space>
 <Leader>wj
 <Leader>wk
 <Leader>wl
-<Leader>wq window quit
 ```
 
 * 环境恢复
