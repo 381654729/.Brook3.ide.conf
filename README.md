@@ -1,6 +1,8 @@
 Brook3's config
 ===
 构造一个程序员的世界
+* sh+tmux+vim
+* git等一些常用软件的配置
 
 vim
 ---
