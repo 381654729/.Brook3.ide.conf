@@ -1,9 +1,10 @@
-# 简化
-alias ll='ls -alF'
+# 优化
+alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 ###
 
 # 自定义
+alias ll='ls -alF'
 alias softwaredir='cd ${SOFTWAREDIR}'
 alias workspace='cd ${WORKSPACE}'
 # fun
