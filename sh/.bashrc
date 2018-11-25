@@ -53,3 +53,5 @@ done
 if [ -f ${CONFIGSPACE}/sh/.alias ]; then 
     source ${CONFIGSPACE}/sh/.alias || echo -e "${COLOR_FAIL}Fail source${CONFIGSPACE}/sh/.alias${COLOR_NULL}"
 fi
+
+LANG="en_US.UTF-8"
