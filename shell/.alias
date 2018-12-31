@@ -1,17 +1,17 @@
 # 优化
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-###
-
 # 自定义
 alias ll='ls -alF'
 alias softwaredir='cd ${SOFTWAREDIR}'
 alias workspace='cd ${WORKSPACE}'
+
 # fun
 # 压缩
 function mktar {
     echo '之后再补充' 
 }
+
 # 解压
 function extract {
     if [ -f $1 ]; then
@@ -33,31 +33,35 @@ function extract {
         echo "'$1' is not a valid file"
     fi
 }
+
 # 备份
 function backup {
     echo 'backup'
 }
+
 # mkdir && cd
 function mcd {
     mkdir $@ && cd $@
 }
+
 # Brook3's config install
 # 最后放到sh中进行执行，下载Brook3's config并进行初始化
 function Brook3_config_install {
     # if [ -f ~/.bashrc ]; then
         # rm -f ~/.bashrc
     # fi
-    # ln -s ${CONFIGSPACE} ~/.bashrc
+    # ln -s ${IDECONFDIR} ~/.bashrc
     echo '1. .bashrc 2. .vimrc 3. .tmux.conf'
 }
 alias b3ci='Brook3_config_install'
 ###
+
 # Brook3's config update
 function Brook3_config_update {
     echo -e "${COLOR_LOADING}Brook3's config update ...${COLOR_NULL}"
     if [ ! -f ~/.bashrc ]; then
         echo -e "${COLOR_LOADING}add ~/.bashrc${COLOR_NULL}"
-        ln -s ${CONFIGSPACE}/sh/.bashrc ~/ && echo -e "${COLOR_SUCC}Succ add${COLOR_NULL} ~/.bashrc" || echo -e "${COLOR_FAIL}Fail add${COLOR_NULL} ~/.bashrc"
+        ln -s ${IDECONFDIR}/shell/.bashrc ~/ && echo -e "${COLOR_SUCC}Succ add${COLOR_NULL} ~/.bashrc" || echo -e "${COLOR_FAIL}Fail add${COLOR_NULL} ~/.bashrc"
     fi
     source ~/.bashrc && echo -e "${COLOR_SUCC}Succ source ~/.bashrc" || echo -e "${COLOR_FAIL}Fail source ~/.bashrc"
 }
@@ -65,9 +69,10 @@ alias b3cu='Brook3_config_update'
 ###
 
 # include *.bash.alias
-for dirname in ${CONFIGSPACE}/*
+for dirname in ${IDECONFDIR}/*
 do
     if [ -f ${dirname}/*.bash.alias ]; then
+    echo ${dirname}
         source ${dirname}/*.bash.alias || echo -e "${COLOR_FAIL}Fail source${COLOR_NULL} ${dirname}/*.bash.alias"
     fi
 done

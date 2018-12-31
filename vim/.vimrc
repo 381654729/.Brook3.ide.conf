@@ -11,10 +11,10 @@ call plug#begin('~/.vim/plugged')
 
 " autoload
 " 待改善：不同文件加载不同配置/不同插件
-source ~/.config/git/git.vimrc
-" source ~/.config/go/go.vimrc
-source ~/.config/markdown/markdown.vimrc
-source ~/.config/python/python.vimrc
+source ~/.Brook3.ide.conf/git/git.vimrc
+" source ~/.Brook3.ide.conf/go/go.vimrc
+source ~/.Brook3.ide.conf/markdown/markdown.vimrc
+source ~/.Brook3.ide.conf/python/python.vimrc
 
 " plug
 nnoremap <leader>pi :PlugInstall<cr>

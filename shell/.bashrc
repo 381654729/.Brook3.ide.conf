@@ -1,3 +1,8 @@
+# 常用路径
+export WORKSPACE=~
+export IDECONFDIR=~/.Brook3.ide.conf
+###
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -28,12 +33,6 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 
-# 常用路径
-export SOFTWAREDIR=/usr/local
-export WORKSPACE=/var/www
-export CONFIGSPACE=~/.config
-###
-
 # 输出颜色
 export PS1='⏱ \[\e[31;1m\]\t \[\e[32;5;1m\]\u\[\e[0m\]\[\e[33;1m\]@\[\e[34;1m\]\h \[\e[35;1m\]\w\[\e[0m\]\$ '
 export COLOR_NULL='\e[0m'
@@ -41,8 +40,10 @@ export COLOR_SUCC='\e[32;1m'
 export COLOR_FAIL='\e[32;1m'
 export COLOR_LOADING='\e[33;1m'
 
+LANG="en_US.UTF-8"
+
 # include bashrc
-for dirname in ${CONFIGSPACE}/*
+for dirname in ${IDECONFDIR}/*
 do
     if [ -f ${dirname}/*.bashrc ]; then
         source ${dirname}/*.bashrc || echo -e "${COLOR_FAIL}Fail source ${dirname}/*.bashrc${COLOR_NULL}"
@@ -50,8 +51,6 @@ do
 done
 
 # includCONFIGSPACE
-if [ -f ${CONFIGSPACE}/sh/.alias ]; then 
-    source ${CONFIGSPACE}/sh/.alias || echo -e "${COLOR_FAIL}Fail source${CONFIGSPACE}/sh/.alias${COLOR_NULL}"
+if [ -f ${IDECONFDIR}/shell/.alias ]; then 
+    source ${IDECONFDIR}/shell/.alias || echo -e "${COLOR_FAIL}Fail source${IDECONFDIR}/shell/.alias${COLOR_NULL}"
 fi
-
-LANG="en_US.UTF-8"
