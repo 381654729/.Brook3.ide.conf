@@ -15,11 +15,10 @@ function ide_install(){
         else
             if [ `docker images | grep -c ${IDEIMAGESNAME}` -gt 0 ]; then
                 # run Brook3.ide
-                # docker run -itd --name ${IDENAME} -p 10001:22 -v /home/brook3/:${WORKSPACE} ${IDEIMAGESNAME} /bin/bash && echo -e "${COLOR_SUCC}Succ run${COLOR_NULL} ${IDENAME}" || echo -e "${COLOR_FAIL}Fail run${COLOR_NULL} ${IDENAME}"
-                docker run -itd --name ${IDENAME} -p 10001:22 -v /home/brook3/:/root ${IDEIMAGESNAME} /bin/bash && echo -e "${COLOR_SUCC}Succ run${COLOR_NULL} ${IDENAME}" || echo -e "${COLOR_FAIL}Fail run${COLOR_NULL} ${IDENAME}"
+                docker run -itd --name ${IDENAME} -p 10001:22 -v /home/brook3/:/home/Brook3 ${IDEIMAGESNAME} /bin/bash && echo -e "${COLOR_SUCC}Succ run${COLOR_NULL} ${IDENAME}" || echo -e "${COLOR_FAIL}Fail run${COLOR_NULL} ${IDENAME}"
             else
                 # build images
-                docker build -t ${IDEIMAGESNAME} ${IDECONFDIR}/ && echo -e "${COLOR_SUCC}Succ build${COLOR_NULL} ${IDENAME}" || echo -e "${COLOR_FAIL}Fail build${COLOR_NULL} ${IDENAME}"
+                docker build --no-cache -t ${IDEIMAGESNAME} ${IDECONFDIR}/docker && echo -e "${COLOR_SUCC}Succ build${COLOR_NULL} ${IDENAME}" || echo -e "${COLOR_FAIL}Fail build${COLOR_NULL} ${IDENAME}"
                 ide_install
             fi
         fi
