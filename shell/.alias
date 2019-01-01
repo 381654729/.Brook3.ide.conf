@@ -72,7 +72,6 @@ alias b3cu='Brook3_config_update'
 for dirname in ${IDECONFDIR}/*
 do
     if [ -f ${dirname}/*.bash.alias ]; then
-    echo ${dirname}
         source ${dirname}/*.bash.alias || echo -e "${COLOR_FAIL}Fail source${COLOR_NULL} ${dirname}/*.bash.alias"
     fi
 done
