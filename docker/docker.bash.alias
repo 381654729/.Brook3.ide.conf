@@ -13,23 +13,23 @@ function ide_install(){
         if [ `docker ps -a | grep -c ${IDENAME}` -gt 0 ]; then
             # start Brook3.ide
             docker start ${IDENAME} \
-				&& echo -e "${COLOR_SUCC}Succ start${COLOR_NULL} ${IDENAME}" \
-				|| echo -e "${COLOR_FAIL}Fail start${COLOR_NULL} ${IDENAME}"
+                && echo -e "${COLOR_SUCC}Succ start${COLOR_NULL} ${IDENAME}" \
+                || echo -e "${COLOR_FAIL}Fail start${COLOR_NULL} ${IDENAME}"
         else
             if [ `docker images | grep -c ${IDEIMAGESNAME}` -gt 0 ]; then
                 # run Brook3.ide
                 docker run -itd \
-					--name ${IDENAME} \
-					-p 10001:22 \
-					-v /home/brook3/:/home/Brook3 \
-					${IDEIMAGESNAME} /bin/bash \
-					&& echo -e "${COLOR_SUCC}Succ run${COLOR_NULL} ${IDENAME}" \
-					|| echo -e "${COLOR_FAIL}Fail run${COLOR_NULL} ${IDENAME}"
+                    --name ${IDENAME} \
+                    -p 10001:22 \
+                    -v ${WORKSPACE}/.Brook3.ide.conf:/home/Brook3/.Brook3.ide.conf \
+                    ${IDEIMAGESNAME} /bin/bash \
+                    && echo -e "${COLOR_SUCC}Succ run${COLOR_NULL} ${IDENAME}" \
+                    || echo -e "${COLOR_FAIL}Fail run${COLOR_NULL} ${IDENAME}"
             else
                 # build images
                 docker build --no-cache -t ${IDEIMAGESNAME} ${IDECONFDIR}/docker \
-					&& echo -e "${COLOR_SUCC}Succ build${COLOR_NULL} ${IDENAME}" \
-					|| echo -e "${COLOR_FAIL}Fail build${COLOR_NULL} ${IDENAME}"
+                    && echo -e "${COLOR_SUCC}Succ build${COLOR_NULL} ${IDENAME}" \
+                    || echo -e "${COLOR_FAIL}Fail build${COLOR_NULL} ${IDENAME}"
                 ide_install
             fi
         fi
@@ -45,8 +45,8 @@ function ide_start(){
     fi
     # attach Brook3.ide
     docker attach ${IDENAME} \
-		&& echo -e "${COLOR_SUCC}Succ attach${COLOR_NULL} ${IDENAME}" \
-		|| echo -e "${COLOR_FAIL}Fail attach${COLOR_NULL} ${IDENAME}"
+        && echo -e "${COLOR_SUCC}Succ attach${COLOR_NULL} ${IDENAME}" \
+        || echo -e "${COLOR_FAIL}Fail attach${COLOR_NULL} ${IDENAME}"
 }
 alias startb3i='ide_start'
 
@@ -55,20 +55,20 @@ function ide_remove(){
     # stop Brook3.ide
     if [ `docker ps | grep -c ${IDENAME}` -gt 0 ]; then
         docker stop ${IDENAME} \
-			&& echo -e "${COLOR_SUCC}Succ stop${COLOR_NULL} ${IDENAME}" \
-			|| echo -e "${COLOR_FAIL}Fail stop${COLOR_NULL} ${IDENAME}"
+            && echo -e "${COLOR_SUCC}Succ stop${COLOR_NULL} ${IDENAME}" \
+            || echo -e "${COLOR_FAIL}Fail stop${COLOR_NULL} ${IDENAME}"
     fi
     # rm Brook3.ide
     if [ `docker ps -a | grep -c ${IDENAME}` -gt 0 ]; then
         docker rm ${IDENAME} \
-			&& echo -e "${COLOR_SUCC}Succ rm${COLOR_NULL} ${IDENAME}" \
-			|| echo -e "${COLOR_FAIL}Fail rm${COLOR_NULL} ${IDENAME}"
+            && echo -e "${COLOR_SUCC}Succ rm${COLOR_NULL} ${IDENAME}" \
+            || echo -e "${COLOR_FAIL}Fail rm${COLOR_NULL} ${IDENAME}"
     fi
     # rm Brook3.ide images
     if [ `docker images | grep -c ${IDEIMAGESNAME}` -gt 0 ]; then
         docker rmi ${IDEIMAGESNAME} \
-			&& echo -e "${COLOR_SUCC}Succ rm images${COLOR_NULL} ${IDEIMAGESNAME}" \
-			|| echo -e "${COLOR_FAIL}Fail rm images${COLOR_NULL} ${IDEIMAGESNAME}"
+            && echo -e "${COLOR_SUCC}Succ rm images${COLOR_NULL} ${IDEIMAGESNAME}" \
+            || echo -e "${COLOR_FAIL}Fail rm images${COLOR_NULL} ${IDEIMAGESNAME}"
     fi
 }
 alias removeb3i='ide_remove'

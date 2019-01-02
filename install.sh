@@ -1,28 +1,76 @@
 #!/bin/bash
 export IDEIMAGESNAME=brook3.ide
 export IDENAME=Brook3.ide
-export IDECONFDIR=.Brook3.ide.conf
+export WORKSPACE=~/Brook3.workSpace
+export IDECONFDIR=${WORKSPACE}/.Brook3.ide.conf
 
-# init env
-function env_init(){
-	# Brook3.ide.conf
-	if [ ! -d ~/${IDECONFDIR} ]; then
-		git clone https://gitlab.com/381654729/env/.Brook3.ide.conf.git ~/${IDECONFDIR}
-	fi
-	# .bashrc
-	if [ -f ~/.bashrc ]; then
-		rm -rf ~/.bashrc
-	fi
-	ln -s ~/${IDECONFDIR}/shell/.bashrc ~/.bashrc
-
-	# .vim
-	if [ -d ~/.vim ]; then
-		rm -rf ~/.vim
-	fi
-	ln -s ~/${IDECONFDIR}/vim ~/.vim
-	if [ -f ~/.vimrc ]; then
-		rm -rf ~/.vimrc
-	fi
-	ln -s ~/${IDECONFDIR}/vim/.vimrc ~/.vimrc
+# install Brook3.ide
+function ide_install(){
+    # isrun Brook3.ide
+    if [ `docker ps | grep -c ${IDENAME}` -gt 0 ]; then
+        # running
+        echo -e "${COLOR_SUCC}${IDENAME} is running...${COLOR_NULL}"
+    else
+        # isset Brook3.ide
+        if [ `docker ps -a | grep -c ${IDENAME}` -gt 0 ]; then
+            # start Brook3.ide
+            docker start ${IDENAME} \
+                && echo -e "${COLOR_SUCC}Succ start${COLOR_NULL} ${IDENAME}" \
+                || echo -e "${COLOR_FAIL}Fail start${COLOR_NULL} ${IDENAME}"
+        else
+            if [ `docker images | grep -c ${IDEIMAGESNAME}` -gt 0 ]; then
+                # run Brook3.ide
+                docker run -itd \
+                    --name ${IDENAME} \
+                    -v ${WORKSPACE}:/root \
+                    ${IDEIMAGESNAME} /bin/bash \
+                    && echo -e "${COLOR_SUCC}Succ run${COLOR_NULL} ${IDENAME}" \
+                    || echo -e "${COLOR_FAIL}Fail run${COLOR_NULL} ${IDENAME}"
+            else
+                # build images
+                docker build --no-cache -t ${IDEIMAGESNAME} ${IDECONFDIR}/docker \
+                    && echo -e "${COLOR_SUCC}Succ build${COLOR_NULL} ${IDENAME}" \
+                    || echo -e "${COLOR_FAIL}Fail build${COLOR_NULL} ${IDENAME}"
+                ide_install
+            fi
+        fi
+    fi
 }
-env_init
+alias installb3i='ide_install'
+
+# start Brook3.ide
+function ide_start(){
+    # run Brook3.ide
+    if [ `docker ps | grep -c ${IDENAME}` -lt 1 ]; then
+        ide_install
+    fi
+    # attach Brook3.ide
+    docker attach ${IDENAME} \
+        && echo -e "${COLOR_SUCC}Succ attach${COLOR_NULL} ${IDENAME}" \
+        || echo -e "${COLOR_FAIL}Fail attach${COLOR_NULL} ${IDENAME}"
+}
+alias startb3i='ide_start'
+startb3i
+
+# remove Brook3.ide
+function ide_remove(){
+    # stop Brook3.ide
+    if [ `docker ps | grep -c ${IDENAME}` -gt 0 ]; then
+        docker stop ${IDENAME} \
+            && echo -e "${COLOR_SUCC}Succ stop${COLOR_NULL} ${IDENAME}" \
+            || echo -e "${COLOR_FAIL}Fail stop${COLOR_NULL} ${IDENAME}"
+    fi
+    # rm Brook3.ide
+    if [ `docker ps -a | grep -c ${IDENAME}` -gt 0 ]; then
+        docker rm ${IDENAME} \
+            && echo -e "${COLOR_SUCC}Succ rm${COLOR_NULL} ${IDENAME}" \
+            || echo -e "${COLOR_FAIL}Fail rm${COLOR_NULL} ${IDENAME}"
+    fi
+    # rm Brook3.ide images
+    if [ `docker images | grep -c ${IDEIMAGESNAME}` -gt 0 ]; then
+        docker rmi ${IDEIMAGESNAME} \
+            && echo -e "${COLOR_SUCC}Succ rm images${COLOR_NULL} ${IDEIMAGESNAME}" \
+            || echo -e "${COLOR_FAIL}Fail rm images${COLOR_NULL} ${IDEIMAGESNAME}"
+    fi
+}
+alias removeb3i='ide_remove'
