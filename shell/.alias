@@ -4,7 +4,7 @@ alias grep='grep --color=auto'
 # 自定义
 alias ll='ls -alF'
 alias softwaredir='cd ${SOFTWAREDIR}'
-alias workspace='cd ${WORKSPACE}'
+# alias workspace='cd ${WORKSPACE}'
 
 # fun
 # 压缩
